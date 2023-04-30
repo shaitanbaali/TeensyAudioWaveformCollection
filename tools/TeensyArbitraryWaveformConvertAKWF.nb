@@ -1,0 +1,169 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      6584,        161]
+NotebookOptionsPosition[      6111,        144]
+NotebookOutlinePosition[      6503,        160]
+CellTagsIndexPosition[      6460,        157]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+  "folderProcessName", "=", "\"\<***COMPLETE WAVEFORMS FOLDER***\>\""}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"SetDirectory", "[", "folderProcessName", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"listOfFiles", "=", 
+   RowBox[{"FileNames", "[", 
+    RowBox[{"\"\<*.wav*\>\"", ",", "folderProcessName", ",", " ", "4"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"lenghtOfFiles", "=", 
+   RowBox[{"Length", "[", "listOfFiles", "]"}]}], "\n"}], "\n", 
+ RowBox[{"Do", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"vectorOfSamples", "=", 
+     RowBox[{"Flatten", "[", 
+      RowBox[{"Floor", "[", 
+       RowBox[{"32768", " ", 
+        RowBox[{"Import", "[", 
+         RowBox[{
+          RowBox[{"listOfFiles", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], ",", "\"\<Data\>\"", ",", 
+          RowBox[{"SampleRate", "\[Rule]", "18816"}]}], "]"}]}], "]"}], 
+      "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"numberOfCells", "=", 
+     RowBox[{"ToString", "[", 
+      RowBox[{"Length", "[", "vectorOfSamples", "]"}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"fileName", "=", 
+     RowBox[{"ToString", "[", 
+      RowBox[{"FileBaseName", "[", 
+       RowBox[{"listOfFiles", "[", 
+        RowBox[{"[", "i", "]"}], "]"}], "]"}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"fileDirectoryName", "=", 
+     RowBox[{"ToString", "[", 
+      RowBox[{"DirectoryName", "[", 
+       RowBox[{"listOfFiles", "[", 
+        RowBox[{"[", "i", "]"}], "]"}], "]"}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"line3", "=", 
+     RowBox[{
+     "ToString", "[", 
+      "\"\</* Adventure Kid Waveforms (AKWF) converted for use with Teensy \
+Audio Library \n*  \n*  Adventure Kid Waveforms(AKWF) Open waveforms library\n\
+*  https://www.adventurekid.se/akrt/waveforms/adventure-kid-waveforms/\n*  \n\
+*  Teensy Audio Library \n*  16 bit, 44.1 kHz streaming audio library for \
+Teensy 3.x and Teensy 4.x\n*  https://www.pjrc.com/teensy/td_libs_Audio.html\n\
+*  \n*  This code is in the public domain, CC0 1.0 Universal (CC0 1.0)\n*  \
+https://creativecommons.org/publicdomain/zero/1.0/\n*\n*  Converted by \
+Marcelo Valeria, https://github.com/shaitanbaali\n*/\n\>\"", "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"line6", "=", 
+     RowBox[{"StringJoin", "[", 
+      RowBox[{
+      "\"\</* \>\"", ",", "fileName", ",", "\"\< \>\"", ",", "numberOfCells", 
+       ",", "\"\< samples */\>\""}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"line7", "=", 
+     RowBox[{"StringJoin", "[", 
+      RowBox[{
+      "\"\<const int16_t \>\"", ",", "fileName", ",", "\"\<_\>\"", ",", 
+       "numberOfCells", ",", "\"\<_DATA [\>\"", ",", " ", "numberOfCells", 
+       ",", " ", "\"\<] = \>\""}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"line8", "=", 
+     RowBox[{"StringJoin", "[", 
+      RowBox[{
+       RowBox[{"ToString", "[", "vectorOfSamples", "]"}], ",", "\"\<;\>\""}], 
+      "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"outputText", "=", 
+     RowBox[{"ToString", "[", 
+      RowBox[{"Column", "[", 
+       RowBox[{"{", 
+        RowBox[{
+        "line3", ",", "line6", ",", "\"\< \>\"", ",", "line7", ",", "line8"}],
+         "}"}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"exportFileName", "=", 
+     RowBox[{"StringJoin", "[", 
+      RowBox[{
+      "fileDirectoryName", ",", "fileName", ",", "\"\<_\>\"", ",", 
+       "numberOfCells", ",", "\"\<.h\>\""}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Export", "[", 
+     RowBox[{"exportFileName", ",", "outputText", ",", "\"\<Table\>\""}], 
+     "]"}]}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", 
+     RowBox[{"Length", "[", "listOfFiles", "]"}]}], "}"}]}], "]"}]}], "Input",\
+
+ CellChangeTimes->{{3.89160909315241*^9, 3.8916090931562366`*^9}, {
+   3.891610141133814*^9, 3.891610152451749*^9}, 3.891610270712071*^9, 
+   3.891610398644271*^9, {3.8916105436135397`*^9, 3.8916105603266068`*^9}, {
+   3.891610591673482*^9, 3.89161059734591*^9}, {3.891613448524194*^9, 
+   3.891613483727449*^9}, {3.8916135148946037`*^9, 3.891613535633429*^9}, {
+   3.8916136361850767`*^9, 3.8916136629748096`*^9}, {3.891614071696753*^9, 
+   3.891614079734578*^9}, {3.8916141125342417`*^9, 3.891614114666276*^9}, 
+   3.89161420239751*^9, {3.891614240030002*^9, 3.891614240671668*^9}, {
+   3.891614945897403*^9, 3.891614987491171*^9}, {3.891615084769452*^9, 
+   3.89161508729617*^9}, {3.891617382599962*^9, 3.891617383634582*^9}, {
+   3.891643070211996*^9, 3.891643075325186*^9}, {3.891643477274446*^9, 
+   3.891643477810556*^9}, {3.891849874088969*^9, 3.8918498824339542`*^9}, {
+   3.8918511854978437`*^9, 3.8918511958984747`*^9}, {3.891851273761042*^9, 
+   3.891851317443717*^9}, {3.891851348516415*^9, 3.891851383236394*^9}, {
+   3.891851451162764*^9, 3.8918514803522367`*^9}, 3.891851512413615*^9, {
+   3.891851731498354*^9, 
+   3.891851749540258*^9}},ExpressionUUID->"05803ff9-ad1c-40eb-a519-\
+9efb714a6a7d"],
+
+Cell[BoxData["4358"], "Output",
+ CellChangeTimes->{
+  3.891609618345811*^9, 3.8916102818783903`*^9, 3.891610415728187*^9, 
+   3.89161062655414*^9, 3.8916135519830914`*^9, 3.891613710056355*^9, 
+   3.891613873051463*^9, {3.891614077584207*^9, 3.8916140820479107`*^9}, 
+   3.8916141187842817`*^9, 3.891614243850871*^9, 3.891615009321753*^9, 
+   3.891615095539248*^9, 3.891617390164727*^9, 3.89161756953767*^9, 
+   3.891643093923955*^9, 3.891851248410665*^9, 3.891851548113901*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"f20f8ad2-38a1-4846-8030-c94431fcdb8d"]
+}, Open  ]]
+},
+WindowSize->{808, 691},
+WindowMargins->{{4, Automatic}, {Automatic, 4}},
+FrontEndVersion->"12.1 for Mac OS X x86 (64-bit) (March 13, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"54317fae-45f7-4af4-ad22-28910f101d63"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 4956, 109, 745, "Input",ExpressionUUID->"05803ff9-ad1c-40eb-a519-9efb714a6a7d"],
+Cell[5539, 133, 556, 8, 34, "Output",ExpressionUUID->"f20f8ad2-38a1-4846-8030-c94431fcdb8d"]
+}, Open  ]]
+}
+]
+*)
+
